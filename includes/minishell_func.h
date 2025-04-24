@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 20:43:21 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/25 00:36:21 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	set_redirections(char **args, t_redir_node *redir, t_minishell *sh);
 
 // free_all.c
 void	free_str_list(char **lst);
-void	free_all_struct(t_minishell *sh, char **arg_list, char **envp);
+int		free_all_struct(t_minishell *sh, char **arg_list, char **envp);
 void	free_token_list(t_token **tk_list);
 void	free_ast(t_ast_node *node);
 
@@ -87,7 +87,11 @@ char	*parenthesis(char **line, char c);
 int		hash_string(char const *s);
 
 //lexer.c
-t_token	**lexer(char *line);
+int	lexer(t_minishell *sh);
+int	list_to_array(t_minishell *sh);
+
+//main.c
+void	init_shell(t_minishell *sh);
 
 //main_walter.c
 t_token	*free_tokens(t_token *tokens);

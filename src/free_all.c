@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 13:28:44 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 17:39:59 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/25 00:19:16 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	free_ast(t_ast_node *node)
 		free(node);
 }
 
-void	free_all_struct(t_minishell *sh, char **arg_list, char **envp)
+int	free_all_struct(t_minishell *sh, char **arg_list, char **envp)
 {
 	free_env_list(sh->env_list);
 	free_ast(sh->ast);
@@ -104,7 +104,8 @@ void	free_all_struct(t_minishell *sh, char **arg_list, char **envp)
 		free(sh->pipe_fds);
 	close(sh->original_stdin);
 	close(sh->original_stdout);
-	free(sh);	
 	free_str_list(arg_list);
 	free_str_list(envp);
+	init_shell(sh);
+	return (FAILURE);
 }

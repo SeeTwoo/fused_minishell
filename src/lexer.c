@@ -6,55 +6,51 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:18:22 by walter            #+#    #+#             */
-/*   Updated: 2025/04/24 16:35:30 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/25 00:26:17 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	skip_whitespace(char **line)
+void	skip_whitespace(char **current)
 {
-	while (ft_isspace(**line))
-		(*line)++;
+	while (ft_isspace(**current))
+		(*current)++;
 }
 
-size_t	list_len(t_token *head)
+size_t	list_len(t_token *tok_list)
 {
 	size_t	i;
 
 	i = 0;
-	while (head)
+	while (tok_list)
 	{
-		head = head->next;
+		tok_list = tok_list->next;
 		i++;
 	}
 	return (i);
 }
 
-t_token	**list_to_array(t_token *head)
+int	list_to_array(t_minishell *sh)
 {
-	t_token	**array;
 	size_t	i;
 
-	array = malloc(sizeof(t_token *) * (list_len(head) + 1));
-	if (!array)
-	{
-//		free_tokens(head);
-		return (NULL);
-	}
+	sh->tok_array = malloc(sizeof(t_token *) * (list_len(sh->tok_list) + 1));
+	if (!sh->tok_array)
+		return (FAILURE);
 	i = 0;
-	while (head)
+	while (sh->tok_list)
 	{
-		array[i] = head;
-		head = head->next;
-		array[i]->next = NULL;
+		sh->tok_array[i] = sh->tok_list;
+		sh->tok_list = sh->tok_list->next;
+		sh->tok_array[i]->next = NULL;
 		i++;
 	}
-	array[i] = NULL;
-	return (array);
+	sh->tok_array[i] = NULL;
+	return (SUCCESS);
 }
 
-t_token	*scan_token(char **line)
+t_token	*scan_token(char **current)
 {
 	t_token		*token;
 	t_token		*temp;
@@ -63,12 +59,12 @@ t_token	*scan_token(char **line)
 	if (!token)
 		return (NULL);
 	token->next = NULL;
-	if (**line == '(' || **line == ')')
-		temp = parenthesis_token(token, line);
-	else if (ft_strchr(SEP, **line))
-		temp = separator_token(token, line);
+	if (**current == '(' || **current == ')')
+		temp = parenthesis_token(token, current);
+	else if (ft_strchr(SEP, **current))
+		temp = separator_token(token, current);
 	else
-		temp = commands_token(token, line);
+		temp = commands_token(token, current);
 	if (!temp)
 	{
 		free(token);
@@ -77,30 +73,25 @@ t_token	*scan_token(char **line)
 	return (token);
 }
 
-t_token	**lexer(char *line)
+int	lexer(t_minishell *sh)
 {
-	t_token		*head;
 	t_token		*tail;
+	char		*current;
 
-	head = scan_token(&line);
-	tail = head;
-	if (!head)
+	current = sh->line;
+	sh->tok_list = scan_token(&current);
+	tail = sh->tok_list;
+	if (!sh->tok_list)
+		return (FAILURE);
+	while (*current)
 	{
-		//free_tokens(head);
-		return (NULL);
-	}
-	while (*line)
-	{
-		skip_whitespace(&line);
-		if (!(*line))
+		skip_whitespace(&current);
+		if (!(*current))
 			break ;
-		tail->next = scan_token(&line);
+		tail->next = scan_token(&current);
 		tail = tail->next;
 		if (!tail)
-		{
-			//free_tokens(head);
-			return (NULL);
-		}
+			return (FAILURE);
 	}
-	return (list_to_array(head));
+	return (SUCCESS);
 }

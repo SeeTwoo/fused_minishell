@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:51:37 by walter            #+#    #+#             */
-/*   Updated: 2025/04/24 17:10:46 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/24 23:50:08 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ struct s_redir_node
 
 struct s_minishell
 {
-	t_token		**tok;
+	t_token		*tok_list;
+	t_token		**tok_array;
 	t_ast_node	*ast;
 	t_env_list	*env_list;
 	char		*line;

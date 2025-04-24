@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:49:32 by walter            #+#    #+#             */
-/*   Updated: 2025/04/24 20:45:05 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/24 23:56:10 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@
 
 # ifndef PROMPT
 #  define PROMPT "\e[1m\e[35mMinishell > \e[0m"
+# endif
+
+# ifndef SUCCESS
+#  define SUCCESS 0
+# endif
+
+# ifndef FAILURE
+#  define FAILURE 1
 # endif
 
 #endif

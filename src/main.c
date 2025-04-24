@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 19:29:27 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/25 00:37:49 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	minishell_start(void)
 	ft_printf("\\_|  |_/_|_| |_|_\\____/|_| |_|\\___|_|_|\n\n");
 }
 
-t_minishell	*init_shell(t_minishell *sh, char **env)
+void init_shell(t_minishell *sh)
 {
-	minishell_start();
-	sh->tok = NULL;
+	sh->tok_list = NULL;
+	sh->tok_array = NULL;
 	sh->ast = NULL;
-	sh->env_list = populate_env(env);
+	sh->env_list = NULL;
 	sh->line = NULL;
 	sh->current_line = NULL;
 	sh->last_exit = 0;
@@ -73,21 +73,23 @@ t_minishell	*init_shell(t_minishell *sh, char **env)
 	sh->pipe_fds = NULL;
 	sh->original_stdin = dup(STDIN_FILENO);
 	sh->original_stdout = dup(STDOUT_FILENO);
-	return (sh);
 }
 
 int	minishell_repeat(t_minishell *sh)
 {
 	set_standard_fds(sh);
 	sh->line = readline(PROMPT);
-	//fail logic later
+	if (!sh->line)
+		return (free_all_struct(sh, NULL, NULL));
 	add_history(sh->line);
-	sh->tok = lexer(sh->line);
+	if (lexer(sh) == FAILURE)
+		return (free_all_struct(sh, NULL, NULL));
 	//maybe globbing fits in the lexer
-	//fail logic later
+	if (list_to_array(sh) == FAILURE)
+		return (free_all_struct(sh, NULL, NULL));
 	//check syntax
 	//expand
-	sh->ast = parse_right(sh->tok, 0, 0);
+	sh->ast = parse_right(sh->tok_array, 0, 0);
 	//fail logic + free the token array
 	dfs_ast(sh->ast, sh);
 	free(sh->line);
@@ -100,7 +102,9 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	init_shell(&sh, env);
+	minishell_start();
+	init_shell(&sh);
+	sh.env_list = populate_env(env);
 	while (1)
 		minishell_repeat(&sh);
 	free_all_struct(&sh, NULL, NULL);
