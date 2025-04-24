@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 03:09:48 by walter            #+#    #+#             */
-/*   Updated: 2025/04/07 23:35:44 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/24 19:38:42 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ int	check_parenthesis(t_token **tokens)
 	if (open != close)
 		return (0);
 	return (1);
-}
-
-int	is_separator(t_token *token)
-{
-	return (token->type == AND || token->type == OR || token->type == PIPE);
 }
 
 int	check_separators(t_token **tokens)

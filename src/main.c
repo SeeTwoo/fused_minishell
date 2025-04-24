@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 19:21:58 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/24 19:29:27 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_minishell	*init_shell(t_minishell *sh, char **env)
 int	minishell_repeat(t_minishell *sh)
 {
 	set_standard_fds(sh);
-	sh->line = readline("PROMPT");
+	sh->line = readline(PROMPT);
 	//fail logic later
 	add_history(sh->line);
 	sh->tok = lexer(sh->line);
