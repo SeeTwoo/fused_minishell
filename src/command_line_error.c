@@ -6,75 +6,73 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 03:09:48 by walter            #+#    #+#             */
-/*   Updated: 2025/04/24 19:38:42 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/25 01:37:57 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_parenthesis(t_token **tokens)
+int	check_parenthesis(t_token **tok)
 {
 	int	i;
-	int	open;
-	int	close;
+	int	paren;
 
-	open = 0;
-	close = 0;
-	while (tokens[i])
+	i = 0;
+	paren = 0;
+	while (tok[i])
 	{
-		if (tokens[i]->type == OPEN_PAREN)
-			open++;
-		else if (tokens[i]->type == CLOSE_PAREN)
-			close++;
+		if (tok[i]->type == OPEN_PAREN)
+			paren++;
+		else if (tok[i]->type == CLOSE_PAREN)
+			paren--;
 		i++;
 	}
-	if (open != close)
-		return (0);
-	return (1);
+	return (paren);
 }
 
-int	check_separators(t_token **tokens)
+int	check_separators(t_token **tok)
 {
 	int	i;
 
-	if (is_separators(tokens[0]))
+	if (is_separator(tok[0]->type))
 	{
-		ft_error_message("unclosed shit");						//better later
-		return (0);
+		ft_error_msg("unclosed shit", NULL);						//better later
+		return (FAILURE);
 	}
 	i = 0;
-	while (tokens[i])
+	while (tok[i])
 	{
-		if (is_separator(tokens[i]) && !tokens[i + 1])
+		if (is_separator(tok[i]->type) && !tok[i + 1])
 		{
-			ft_error_message("unclosed shit");						//better later
-			return (0);
+			ft_error_msg("unclosed shit", NULL);						//better later
+			return (FAILURE);
 		}
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
-int	check_redirs(t_token **tokens)
+int	check_redirs(t_token **tok)
 {
-	int	in;
-	int	out;
 	int	i;
 
 	i = 0;
-	while (tokens[i])
+	while (tok[i])
 	{
-		while (!is_separator(tokens[i]) && tokens[i]->type != 
+		if (is_redir(tok[i]->type) && (!tok[i + 1] || !is_word(tok[i]->type)))
+			return (FAILURE);
+		i++;
 	}
+	return (SUCCESS);
 }
 
-int	has_error(t_token **tokens)
+int	has_error(t_token **tok)
 {
-	if (!check_parenthesis(tokens)
-		return (0);
-	if (!check_separators(tokens))
-		return (0);
-	if (!check_redirs(tokens))
-		return (0);
-	return (1);
+	if (!check_parenthesis(tok))
+		return (FAILURE);
+	if (!check_separators(tok))
+		return (FAILURE);
+	if (!check_redirs(tok))
+		return (FAILURE);
+	return (SUCCESS);
 }

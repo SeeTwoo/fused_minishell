@@ -9,6 +9,7 @@ SRC_DIR = src
 SRC_FILES =	args_creators.c \
 			builtins.c \
 			builtins_utils.c \
+			command_line_error.c \
 			env.c \
 			env_utils.c \
 			exec.c \
