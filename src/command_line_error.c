@@ -68,11 +68,11 @@ int	check_redirs(t_token **tok)
 
 int	has_error(t_token **tok)
 {
-	if (!check_parenthesis(tok))
+	if (check_parenthesis(tok) == FAILURE)
 		return (FAILURE);
-	if (!check_separators(tok))
+	if (check_separators(tok) == FAILURE)
 		return (FAILURE);
-	if (!check_redirs(tok))
+	if (check_redirs(tok) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
