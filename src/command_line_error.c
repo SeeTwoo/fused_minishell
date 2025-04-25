@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 03:09:48 by walter            #+#    #+#             */
-/*   Updated: 2025/04/25 01:37:57 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/25 21:29:29 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int	check_parenthesis(t_token **tok)
 		else if (tok[i]->type == CLOSE_PAREN)
 			paren--;
 		i++;
+	}
+	if (paren != 0)
+	{
+		ft_dprintf(2, "%s%s\n", ERR_HD, UNCLOSED_PAREN);
+		return (FAILURE);
 	}
 	return (paren);
 }
