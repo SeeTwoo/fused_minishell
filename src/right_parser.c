@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	skip_paren(t_token **tok)
+/*int	skip_paren(t_token **tok)
 {
 	int	i;
 	int	paren;
@@ -66,3 +66,4 @@ t_ast_node	*parse_right(t_token **tok, int i, int lim)
 		return (pipe_creator(tok, i));
 	return (cmd_creator(tok, i));
 }
+*/
