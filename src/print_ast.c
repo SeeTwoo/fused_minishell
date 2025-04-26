@@ -6,11 +6,24 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:00:29 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/22 11:36:01 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:30:00 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_type_str(int type)
+{
+	if (is_in_redir(type))
+		return ("IN_REDIR");
+	if (is_out_redir(type))
+		return ("OUT_REDIR");
+	if (is_logic(type))
+		return ("LOGIC");
+	if (is_pipe(type))
+		return ("PIPE");
+	return ("OTHER_TYPE");
+}
 
 void	print_cmd(t_ast_node *cmd_node)
 {

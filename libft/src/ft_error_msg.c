@@ -6,13 +6,15 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:58:23 by walter            #+#    #+#             */
-/*   Updated: 2025/03/19 10:12:30 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/26 17:15:58 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_error_msg(char *msg1, char *msg2)
+// MAYBE BECOMING OBSOLETE WITH A GOOD DPRINTF
+
+/*void	ft_error_msg(char *msg1, char *msg2)
 {
 	char	buff[128];
 
@@ -30,7 +32,7 @@ void	ft_error_msg(char *msg1, char *msg2)
 	write(2, buff, ft_strlen(buff));
 }
 
-/*int	main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	if (ac != 3)
 		return (0);

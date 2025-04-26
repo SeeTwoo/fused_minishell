@@ -6,13 +6,13 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 09:22:10 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/22 09:24:57 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:18:37 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*int	skip_paren_left(t_token **tok, int i)
+int	skip_paren_left(t_token **tok, int i)
 {
 	int	paren;
 
@@ -61,4 +61,4 @@ t_ast_node	*parse_left(t_token **tok, int i, int lim)
 		return (pipe_creator(tok, i));
 	return (cmd_creator(tok, i));
 }
-*/
+

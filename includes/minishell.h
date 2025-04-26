@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:49:32 by walter            #+#    #+#             */
-/*   Updated: 2025/04/24 23:56:10 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/26 16:35:36 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "minishell_structs.h"
 # include "minishell_func.h"
+# include "minishell_error_message.h"
 
 # include <dirent.h>
 # include <errno.h>

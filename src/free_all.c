@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 13:28:44 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/25 00:19:16 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/26 21:25:39 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	free_env_list(t_env_list *env_list)
 	free(env_list);
 }
 
+//ft_printf("tk_list[%d]: value: %s, expanded: %s, quote: %s\n",
+//	i, tk_list[i]->value, tk_list[i]->expanded_value, tk_list[i]->quote_mask);
 void	free_token_list(t_token **tk_list)
 {
 	int	i;
@@ -45,7 +47,6 @@ void	free_token_list(t_token **tk_list)
 	i = 0;
 	while (tk_list[i])
 	{
-		//ft_printf("tk_list[%d]: value: %s, expanded: %s, quote: %s\n", i, tk_list[i]->value, tk_list[i]->expanded_value, tk_list[i]->quote_mask);
 		free(tk_list[i]->value);
 		free(tk_list[i]->quote_mask);
 		free(tk_list[i]->expanded_value);
@@ -60,7 +61,7 @@ void	free_str_list(char **lst)
 	int	i;
 
 	if (!lst)
-		return;
+		return ;
 	i = 0;
 	while (lst[i])
 	{
@@ -69,18 +70,20 @@ void	free_str_list(char **lst)
 	}
 	free(lst);
 }
+
 /*
 void	free_redirect(t_redir_node *red)
 {
 
 }
 */
+
 void	free_ast(t_ast_node *node)
 {
 	if (!node)
-		return;
+		return ;
 	if (node->visited == 2)
-		return;
+		return ;
 	node->visited = 2;
 	if (node->left && node->left->visited != 2)
 		free_ast(node->left);
@@ -88,13 +91,14 @@ void	free_ast(t_ast_node *node)
 		free_ast(node->right);
 	if (node->args)
 		(free_str_list(node->args), node->args = NULL);
+	if (node)
+		free(node);
+}
+
 	/*
 	if (node->redirect)
 		free_redirect(node->redirect);
 	*/
-	if (node)
-		free(node);
-}
 
 int	free_all_struct(t_minishell *sh, char **arg_list, char **envp)
 {

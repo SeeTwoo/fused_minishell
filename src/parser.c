@@ -6,13 +6,13 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:02:00 by walter            #+#    #+#             */
-/*   Updated: 2025/04/22 11:31:46 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/26 19:18:04 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_lowest_right(t_token **tok, int i, int lim)
+/*(int	find_lowest_right(t_token **tok, int i, int lim)
 {
 	int	lowest;
 
@@ -70,4 +70,4 @@ t_ast_node	*parse_left(t_token **tok, int i, int lim)
 	else
 		return (cmd_creator(tok, i));
 }
-
+*/

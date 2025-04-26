@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/25 00:36:21 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/26 19:28:09 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_redir_node	*get_redirect(t_token **tokens, int index);
 
 //print_ast.c
 void	print_ast(t_ast_node *head);
+char	*get_type_str(int type);
 
 //right_parser.c
 t_ast_node	*parse_right(t_token **tokens, int index, int lim);

@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 03:09:48 by walter            #+#    #+#             */
-/*   Updated: 2025/04/25 21:29:29 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/26 21:19:29 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_separators(t_token **tok)
 
 	if (is_separator(tok[0]->type))
 	{
-		ft_error_msg("unclosed shit", NULL);						//better later
+		ft_dprintf(2, "%s%s\n", ERR_HD, UNCLOSED_SEP);						//better later
 		return (FAILURE);
 	}
 	i = 0;
@@ -49,7 +49,7 @@ int	check_separators(t_token **tok)
 	{
 		if (is_separator(tok[i]->type) && !tok[i + 1])
 		{
-			ft_error_msg("unclosed shit", NULL);						//better later
+			ft_dprintf(2, "%s%s\n", ERR_HD, UNCLOSED_SEP);
 			return (FAILURE);
 		}
 		i++;
@@ -64,8 +64,11 @@ int	check_redirs(t_token **tok)
 	i = 0;
 	while (tok[i])
 	{
-		if (is_redir(tok[i]->type) && (!tok[i + 1] || !is_word(tok[i]->type)))
+		if (is_redir(tok[i]->type) && (!tok[i + 1] || !is_word(tok[i + 1]->type)))
+		{
+			ft_dprintf(2, "%s%s\n", ERR_HD, EMPTY_REDIR);
 			return (FAILURE);
+		}
 		i++;
 	}
 	return (SUCCESS);
