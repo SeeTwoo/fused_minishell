@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 09:22:10 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/26 19:18:37 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/27 14:42:38 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_lowest_left(t_token **tok, int i, int lim)
 		}
 		if (tok[i]->prec <= tok[lowest]->prec)
 			lowest = i;
-		i++;
+		i--;
 	}
 	return (lowest);
 }

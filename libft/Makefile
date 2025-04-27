@@ -8,6 +8,7 @@ SRC_FILES = ft_atoi_base.c \
 			ft_bzero.c \
 			ft_calloc.c \
 			ft_dprintf.c \
+			ft_dprintf_numbers.c \
 			ft_error_msg.c \
 			ft_isalnum.c \
 			ft_isalpha.c \

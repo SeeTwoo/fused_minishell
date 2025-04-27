@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:31:36 by walter            #+#    #+#             */
-/*   Updated: 2025/04/26 19:35:58 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/27 15:13:39 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ t_ast_node	*cmd_creator(t_token **tok, int i)
 	cmd = malloc(sizeof(t_ast_node));
 	if (!cmd)
 		return (NULL);
-	printf("creating command node with [%s], type is [%s]\n", tok[i]->value, get_type_str(tok[i]->type));
-	printf("node type = %d\n", tok[i]->type);
+//	printf("creating command node with [%s]\n", tok[i]->value);
 	cmd->args = args_creator(&tok[i]);
 	cmd->left = NULL;
 	cmd->right = NULL;
 	cmd->visited = 0;
-	cmd->type = WORD;
+	cmd->type = CMD;
 	cmd->redirect = get_redirect(tok, i);
 	return (cmd);
 }
@@ -37,7 +36,7 @@ t_ast_node	*pipe_creator(t_token **tok, int i)
 	pipe = malloc(sizeof(t_ast_node));
 	if (!pipe)
 		return (NULL);
-	printf("creating pipe node\n");
+//	printf("creating pipe node\n");
 	pipe->args = NULL;
 	pipe->visited = 0;
 	pipe->type = PIPE;
@@ -54,7 +53,7 @@ t_ast_node	*logic_creator(t_token **tok, int i)
 	logic = malloc(sizeof(t_ast_node));
 	if (!logic)
 		return (NULL);
-	printf("creating logic node\n");
+//	printf("creating logic node\n");
 	logic->args = NULL;
 	logic->visited = 0;
 	logic->type = tok[i]->type;
