@@ -32,7 +32,7 @@ SRC_FILES =	args_creators.c \
 			token_creators.c \
 			tree_traverse.c \
 			utils.c \
-			wildcards.c \
+			wildcards_2try.c \
 			wildcards_matching.c \
 			words.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
