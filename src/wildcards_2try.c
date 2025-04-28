@@ -2,22 +2,31 @@
 
 int	add_wild_tok(t_token **wild_toks, char *entry)
 {
-	t_token	*head;
+	t_token	*current;
+	t_token	*new;
 
-	head = *wild_toks;
-	while (head)
-		head = head->next;
-	head = malloc(sizeof(t_token));
-	if (!head)
+	new = malloc(sizeof(t_token));
+	if (!new)
 		return (1);
-	head->value = NULL;
-	head->type = WORD;
-	head->prec = 2;
-	head->expanded_value = ft_strdup(entry);
-	if (!head->expanded_value)
+	new->value = NULL;
+	new->type = WORD;
+	new->prec = 2;
+	new->expanded_value = ft_strdup(entry);
+	if (!new->expanded_value)
 		return (1);
-	head->quote_mask = NULL;
-	head->next = NULL;
+	new->quote_mask = NULL;
+	new->next = NULL;
+	if (!(*wild_toks))
+	{
+		*wild_toks = new;
+	}
+	else
+	{
+		current = *wild_toks;
+		while (current->next)
+			current = current->next;
+		current->next = new;
+	}
 	return (0);
 }
 
@@ -38,33 +47,30 @@ int	create_wild_toks(char *wild, t_token **wild_toks)
 		free(wild_dup);
 		entry = readdir(dir);
 	}
-	print_tokens(*wild_tok
 	return (0);
-}
-
-void	put_tail_back(t_token **wild_toks, t_token *list_tail)
-{
-	t_token *temp;
-
-	temp = *wild_toks;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = list_tail;
 }
 
 int	insert_wild_toks(t_token **head)
 {
 	t_token	*wild_toks;
-//	t_token	*former_head;
 	t_token	*list_tail;
+	t_token	*last_wild;
 
+	print_tokens((*head));				//printing tokens
+	printf("current head value is %s\n\n", (*head)->value);
 	create_wild_toks((*head)->value, &wild_toks);
 	if (!wild_toks)
 		return (0);
-//	former_head = *head;
 	list_tail = (*head)->next;
+	print_tokens(list_tail);			//printing tokens
+	last_wild = wild_toks;
+	while (last_wild->next)
+		last_wild = last_wild->next;
+	if (!(last_wild->next))
+		printf("last wild is indeed the wild\n\n");
+	last_wild->next = list_tail;
+	print_tokens(wild_toks);			//printing tokens
 	*head = wild_toks;
-	put_tail_back(&wild_toks, list_tail);
 	return (0);
 }
 
@@ -79,6 +85,7 @@ int	globbing(t_minishell *sh)
 	{
 		if (prev == WORD && temp->type == WORD && ft_strchr(temp->value, '*'))
 			insert_wild_toks(&temp);
+		prev = temp->type;
 		temp = temp->next;
 	}
 	return (1);
