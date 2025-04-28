@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_walter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 19:06:03 by walter            #+#    #+#             */
-/*   Updated: 2025/04/20 19:45:12 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:27:25 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 void	print_tokens(t_token *tokens)
 {
-	char	string_types[12][20] = {"or", "in", "hd", "trunc", "word", "pipe",
-		"append", "close paren", "and", "open paren"
-	};
-
+	if (!tokens)
+		printf("no tokens dafug\n");
 	while (tokens)
 	{
-		if (tokens->lexeme)
-			printf("lexeme is: %s\t\t type is: %s\n", tokens->lexeme, string_types[tokens->type]);
+		if (tokens->value)
+			printf("value is: %s\n", tokens->value);
 		tokens = tokens->next;
 	}
 }
@@ -34,13 +32,13 @@ t_token	*free_tokens(t_token *tokens)
 	{
 		temp = tokens;
 		tokens = tokens->next;
-		free(temp->lexeme);
+		free(temp->value);
 		free(temp);
 	}
 	return (NULL);
 }
 
-int	main(void)
+/*int	main(void)
 {
 	t_shobj	obj;
 	char	*line;
@@ -58,7 +56,8 @@ int	main(void)
 		return (1);
 	printf("\n");
 	print_ast(obj.head);
-/*	if (has_error(tokens))
-		return (free_tokens(tokens), free(line), 1);*/
+	if (has_error(tokens))
+		return (free_tokens(tokens), free(line), 1);
 	return (0);
 }
+*/

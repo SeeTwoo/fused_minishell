@@ -23,6 +23,7 @@ SRC_FILES =	args_creators.c \
 			lexemes_creators.c \
 			lexer.c \
 			main.c \
+			main_walter.c \
 			node_creators.c \
 			parser.c \
 			parsing_redirections.c \
@@ -31,6 +32,8 @@ SRC_FILES =	args_creators.c \
 			token_creators.c \
 			tree_traverse.c \
 			utils.c \
+			wildcards.c \
+			wildcards_matching.c \
 			words.c
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

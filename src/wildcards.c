@@ -6,68 +6,87 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:28:03 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/27 17:47:22 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:39:50 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	add_wild_tok(t_token *head, char *entry)
+void	put_tail_back(t_token *head, t_token *list_tail)
 {
-	while (head)
+	while (head->next)
 		head = head->next;
-	head = new_wild_tok(entry);
+	head->next = list_tail;
 }
 
-int	create_wild_tokens(char *wild)
+t_token *add_wild_tok(char *entry)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return (NULL);
+	new->value = ft_strdup(entry);
+	new->type = WORD;
+	new->prec = 2;
+	new->expanded_value = NULL;
+	new->quote_mask = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+t_token	*create_wild_tokens(char *wild)
 {
 	struct dirent	*entry;
 	DIR				*dir;
 	char			*wild_dup;
 	t_token			*head;
+	t_token			*tail;
 
 	dir = opendir(".");
-	if (!dir)
-	{
-		ft_dprintf(2, "%s%s\n", ERR_HD, CANNOT_OPEN_DIR);
-		return (1);
-	}
 	head = NULL;
-	while (1)
+	entry = readdir(dir);
+	while (entry)
 	{
-		entry = readdir(dir);
-		if (!entry)
-			break ;
 		wild_dup = ft_strdup(wild);
-		if (are_matching(wild_dup, entry->d_name)
-			add_wild_tok(head, entry->d_name);
+		if (are_matching(wild_dup, entry->d_name) && !head)
+		{
+			head = add_wild_tok(entry->d_name);
+			tail = head;
+		}
+		else if (are_matching(wild_dup, entry->d_name))
+		{
+			tail->next = add_wild_tok(entry->d_name);
+			tail = tail->next;
+		}
 		free(wild_dup);
+		entry = readdir(dir);
 	}
 	closedir(dir);
-	return (0);
-}
-
-int	insert_wild_tokens(t_token *head)
-{
-	t_token	*current;
-	t_token	*tail;
-
-	current = head;
-	tail = head->next;
-
+	return (head);
 }
 
 int	globbing(t_minishell *sh)
 {
+	t_token	*list_tail;
 	t_token	*head;
-	int		prev_tok_type;
+	t_token	*former_head;
+	int		prev;
 
 	head = sh->tok_list;
-	prev_tok_type = PIPE;
+	prev = PIPE;
 	while (head)
 	{
-		if (head->type == WORD && prev_tok_type == WORD
-				&& ft_strchr(head->value, '*'))
-			insert_wild_tokens(head);
+		if (head->type == WORD && prev == WORD && ft_strchr(head->value, '*'))
+		{
+			list_tail = head->next;
+			former_head = head;
+			head = create_wild_tokens(head->value);
+			put_tail_back(head, list_tail);
+		}
+		prev = head->type;
+		head = head->next;
 	}
+	print_tokens(sh->tok_list);
+	return (1);
 }

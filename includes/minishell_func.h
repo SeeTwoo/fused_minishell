@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/26 19:28:09 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/28 13:05:45 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	list_to_array(t_minishell *sh);
 void	init_shell(t_minishell *sh);
 
 //main_walter.c
+void	print_tokens(t_token *tokens);
 t_token	*free_tokens(t_token *tokens);
 
 //node_creators.c
@@ -129,6 +130,13 @@ char	*append_str(char *dest, char *src);
 int	is_a_number(char *str);
 char	**init_list(void);
 char	**append_to_lst(char **l, char *new_s);
+
+//wildcards.c
+int	globbing(t_minishell *sh);
+
+//wildcards_matching.c
+int	end_match(char *wild, char *s);
+int	are_matching(char *wild, char *s);
 
 //words.c
 char	*words(char **line);

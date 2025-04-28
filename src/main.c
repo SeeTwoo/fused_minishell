@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/27 15:14:22 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:45:40 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	only_space(char *str)
 	return (1);
 }
 
-void	print_tokens(t_token **tk_list)
+/*void	print_tokens(t_token **tk_list)
 {
 	int	i;
 
@@ -35,13 +35,13 @@ void	print_tokens(t_token **tk_list)
 	{
 		ft_printf("--- %d ---\n", i);
 		ft_printf("value : %s\n", tk_list[i]->value);
-		ft_printf("type : %d\n", tk_list[i]->type);
-		ft_printf("quote mask : %s\n", tk_list[i]->quote_mask);
-		ft_printf("exp value : %s\n", tk_list[i]->expanded_value);
+//		ft_printf("type : %d\n", tk_list[i]->type);
+//		ft_printf("quote mask : %s\n", tk_list[i]->quote_mask);
+//		ft_printf("exp value : %s\n", tk_list[i]->expanded_value);
 		ft_printf("---------\n");
 		i++;
 	}
-}
+}*/
 
 void	set_standard_fds(t_minishell *sh)
 {
@@ -84,7 +84,7 @@ int	minishell_repeat(t_minishell *sh)
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
 		return (free_all_struct(sh, NULL, NULL));
-	//maybe globbing fits in the lexer
+	globbing(sh);
 	if (list_to_array(sh) == FAILURE)
 		return (free_all_struct(sh, NULL, NULL));
 	if (has_error(sh->tok_array) == FAILURE)
