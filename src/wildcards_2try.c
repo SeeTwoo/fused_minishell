@@ -56,36 +56,28 @@ int	insert_wild_toks(t_token **head)
 	t_token	*list_tail;
 	t_token	*last_wild;
 
-	print_tokens((*head));				//printing tokens
-	printf("current head value is %s\n\n", (*head)->value);
 	create_wild_toks((*head)->value, &wild_toks);
 	if (!wild_toks)
 		return (0);
 	list_tail = (*head)->next;
-	print_tokens(list_tail);			//printing tokens
 	last_wild = wild_toks;
 	while (last_wild->next)
 		last_wild = last_wild->next;
-	if (!(last_wild->next))
-		printf("last wild is indeed the wild\n\n");
 	last_wild->next = list_tail;
-	print_tokens(wild_toks);			//printing tokens
-	*head = wild_toks;
+	(*head)->next = wild_toks;
 	return (0);
 }
 
 int	globbing(t_minishell *sh)
 {
-	int		prev;
 	t_token	*temp;
 	
-	prev = PIPE;
 	temp = sh->tok_list;
 	while (temp)
 	{
-		if (prev == WORD && temp->type == WORD && ft_strchr(temp->value, '*'))
+		if (temp->type == WORD && temp->next->type == WORD &&
+				ft_strchr(temp->next->value, '*'))
 			insert_wild_toks(&temp);
-		prev = temp->type;
 		temp = temp->next;
 	}
 	return (1);
