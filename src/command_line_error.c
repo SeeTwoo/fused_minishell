@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 03:09:48 by walter            #+#    #+#             */
-/*   Updated: 2025/04/30 12:58:13 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:52:17 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,28 @@ int	check_redirs(t_token **tok)
 	return (SUCCESS);
 }
 
+int	check_invalid_tok(t_token **tok)
+{
+	int	i;
+
+	i = 0;
+	while (tok[i])
+	{
+		if (tok[i]->type == INVALID)
+		{
+			ft_dprintf(2, "%s%s '%s'\n", ERR_HD, INVALID_SEP, tok[i]->value);
+			return (FAILURE);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
 int	has_error(t_token **tok)
 {
 	if (!tok[0])
+		return (FAILURE);
+	if (check_invalid_tok(tok) == FAILURE)
 		return (FAILURE);
 	if (check_parenthesis(tok) == FAILURE)
 		return (FAILURE);

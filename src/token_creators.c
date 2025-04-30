@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 19:23:49 by walter            #+#    #+#             */
-/*   Updated: 2025/04/30 11:38:16 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:52:31 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,9 @@ t_token	*separator_token(t_token *token, char **line)
 		return (NULL);
 	}
 	len = ft_strlen(token->value);
-	if (len > 2 || (len == 1 && token->value[0] == '&'))
-	{
-		ft_dprintf(2, "%s%s: '%s'\n", ERR_HD, INVALID_SEP, token->value);
-		return (token);
-	}
 	token->type = hash_string(token->value);
+	if (len > 2 || (len == 1 && token->value[0] == '&'))
+		token->type = INVALID;
 	token->prec = get_precedence(token->type);
 	token->expanded_value = NULL;
 	token->quote_mask = NULL;

@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/30 13:02:00 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:55:20 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ int	minishell_repeat(t_minishell *sh)
 		return (FAILURE);
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
-		return (free_all_struct(sh, NULL, NULL));
+		return (FAILURE);
 	globbing(sh);
 	if (list_to_array(sh) == FAILURE)
-		return (free_all_struct(sh, NULL, NULL));
+		return (FAILURE);
 	if (has_error(sh->tok_array) == FAILURE)
-		return (free_all_struct(sh, NULL, NULL));
+		return (FAILURE);
 	//expand
 	sh->ast = parse_right(sh->tok_array, 0, 0);
 //	printf("\nprinting ast:\n\n");

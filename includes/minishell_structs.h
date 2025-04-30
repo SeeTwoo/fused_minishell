@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:51:37 by walter            #+#    #+#             */
-/*   Updated: 2025/04/30 11:38:24 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:48:18 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ enum e_tok_types
 	CLOSE_PAREN = 7,
 	AND = 8,
 	OPEN_PAREN = 9,
-	CMD = 10
+	CMD = 10,
+	INVALID = 11
 };
 
 #endif
