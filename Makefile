@@ -7,6 +7,7 @@ LIB_NAME = $(LIB_DIR)/libft.a
 
 SRC_DIR = src
 SRC_FILES =	args_creators.c \
+			ast_cleaner.c \
 			builtins.c \
 			builtins_utils.c \
 			command_line_error.c \
@@ -29,6 +30,8 @@ SRC_FILES =	args_creators.c \
 			parsing_redirections.c \
 			print_ast.c \
 			right_parser.c \
+			runtime_cleaners.c \
+			token_cleaners.c \
 			token_creators.c \
 			tree_traverse.c \
 			utils.c \

@@ -16,6 +16,9 @@
 //args_creators.c
 char	**args_creator(t_token **tok);
 
+//ast_cleaner.c
+void	free_ast(t_ast_node *head);
+
 // builtins.c;;
 int	ft_echo(int ac, char **args);
 int	ft_pwd(void);
@@ -60,8 +63,8 @@ int	set_redirections(char **args, t_redir_node *redir, t_minishell *sh);
 // free_all.c
 void	free_str_list(char **lst);
 int		free_all_struct(t_minishell *sh, char **arg_list, char **envp);
-void	free_token_list(t_token **tk_list);
-void	free_ast(t_ast_node *node);
+//void	free_token_list(t_token **tk_list);
+//void	free_ast(t_ast_node *node);
 
 // here_doc.c
 int	here_doc(char *lim, char **args, t_minishell *sh);
@@ -112,6 +115,14 @@ char	*get_type_str(int type);
 //right_parser.c
 t_ast_node	*parse_right(t_token **tokens, int index, int lim);
 int	find_lowest_right(t_token **tok, int i, int lim);
+
+//runtime_cleaners.c
+void	end_of_loop_cleaning(t_minishell *sh);
+
+//token_cleaners.c
+void	safe_free(void **ptr);
+void	free_token_list(t_token *head);
+void	free_token_array(t_token **array);
 
 //token_creators.c
 t_token *commands_token(t_token *token, char **line);

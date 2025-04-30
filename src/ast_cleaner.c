@@ -12,11 +12,37 @@
 
 #include "minishell.h"
 
+void	free_double_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		safe_free((void **)&(array[i]));
+		i++;
+	}
+	safe_free((void **)&array);
+}
+
+void	free_redirect(t_redir_node *redir)
+{
+	t_redir_node	*temp;
+
+	while (redir)
+	{
+		temp = redir;
+		redir = redir->next;
+		safe_free((void **)&(temp->str));
+		safe_free((void **)&temp);
+	}
+}
+
 void	free_ast_node(t_ast_node *node)
 {
-	free_doule_array(node->args);
+	free_double_array(node->args);
 	free_redirect(node->redirect);
-	safe_free(&node);
+	safe_free((void **)&node);
 }
 
 void	free_ast(t_ast_node *head)

@@ -98,7 +98,7 @@ int	minishell_repeat(t_minishell *sh)
 //	print_ast(sh->ast);
 	//fail logic + free the token array
 	dfs_ast(sh->ast, sh);
-	//free(sh->line);
+	end_of_loop_cleaning(sh);
 	return (0);
 }
 

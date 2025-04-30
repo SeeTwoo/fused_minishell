@@ -20,10 +20,10 @@ void	safe_free(void **ptr)
 
 void	free_token(t_token *tok)
 {
-	safe_free(&(tok->value));
-	safe_free(&(tok->expanded_value));
-	safe_free(&(tok->quote_mask));
-	safe_free(&tok);
+	safe_free((void **)&(tok->value));
+	safe_free((void **)&(tok->expanded_value));
+	safe_free((void **)&(tok->quote_mask));
+	safe_free((void **)&tok);
 }
 
 void	free_token_list(t_token *list)
@@ -48,5 +48,5 @@ void	free_token_array(t_token **tok_array)
 		free_token(tok_array[i]);
 		i++;
 	}
-	safe_free(&tok_array);
+	safe_free((void **)&tok_array);
 }

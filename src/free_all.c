@@ -40,7 +40,7 @@ void	free_env_list(t_env_list *env_list)
 
 //ft_printf("tk_list[%d]: value: %s, expanded: %s, quote: %s\n",
 //	i, tk_list[i]->value, tk_list[i]->expanded_value, tk_list[i]->quote_mask);
-void	free_token_list(t_token **tk_list)
+/*void	free_token_list(t_token **tk_list)
 {
 	int	i;
 
@@ -55,6 +55,7 @@ void	free_token_list(t_token **tk_list)
 	}
 	free(tk_list);
 }
+*/
 
 void	free_str_list(char **lst)
 {
@@ -78,7 +79,7 @@ void	free_redirect(t_redir_node *red)
 }
 */
 
-void	free_ast(t_ast_node *node)
+/*void	free_ast(t_ast_node *node)
 {
 	if (!node)
 		return ;
@@ -94,6 +95,7 @@ void	free_ast(t_ast_node *node)
 	if (node)
 		free(node);
 }
+*/
 
 	/*
 	if (node->redirect)
