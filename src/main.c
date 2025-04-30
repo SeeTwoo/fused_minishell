@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/30 11:59:00 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:02:00 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int	minishell_repeat(t_minishell *sh)
 {
 	set_standard_fds(sh);
 	sh->line = readline(PROMPT);
-	if (!sh->line)
-		return (free_all_struct(sh, NULL, NULL));
+	if (!sh->line || only_space(sh->line))
+		return (FAILURE);
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
 		return (free_all_struct(sh, NULL, NULL));

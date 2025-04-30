@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:53:43 by walter            #+#    #+#             */
-/*   Updated: 2025/04/29 16:37:55 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/30 12:39:30 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	free_ast_node(t_ast_node *node)
 
 void	free_ast(t_ast_node *head)
 {
+	if (!head)
+		return ;
 	if (head->left)
 		free_ast(head->left);
 	if (head->right)

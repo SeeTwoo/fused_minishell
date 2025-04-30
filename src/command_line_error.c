@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 03:09:48 by walter            #+#    #+#             */
-/*   Updated: 2025/04/26 21:19:29 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/30 12:58:13 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	check_redirs(t_token **tok)
 
 int	has_error(t_token **tok)
 {
+	if (!tok[0])
+		return (FAILURE);
 	if (check_parenthesis(tok) == FAILURE)
 		return (FAILURE);
 	if (check_separators(tok) == FAILURE)
