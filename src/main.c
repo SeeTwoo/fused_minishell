@@ -86,7 +86,7 @@ void soft_init(t_minishell *sh)
 int	minishell_repeat(t_minishell *sh)
 {
 	soft_init(sh);
-	set_standard_fds(sh);
+	//set_standard_fds(sh);
 	sh->line = readline(PROMPT);
 	if (!sh->line || only_space(sh->line))
 		return (end_of_loop_cleaning(sh, FAILURE));
@@ -94,18 +94,20 @@ int	minishell_repeat(t_minishell *sh)
 	if (lexer(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	globbing(sh);
+	printf("PRINTING TOKEN STREAM\n\n");
+	print_tokens(sh->tok_list);
+	printf("\n");
 	if (list_to_array(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	if (has_error(sh->tok_array) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	//expand
 	sh->ast = parse_right(sh->tok_array, 0, 0);
-//	printf("\nprinting ast:\n\n");
-//	print_ast(sh->ast);
-	//fail logic + free the token array
-	dfs_ast(sh->ast, sh);
-	//end_of_loop_cleaning(sh);
-	safe_free((void **)&sh->line);
+	printf("\nprinting ast:\n\n");
+	print_ast(sh->ast);
+	//dfs_ast(sh->ast, sh);
+	end_of_loop_cleaning(sh, SUCCESS);
+	//safe_free((void **)&sh->line);
 	return (0);
 }
 
@@ -115,12 +117,13 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	(void)env;
 //	minishell_start();
 	init_shell(&sh);
-	sh.env_list = populate_env(env);
-	while (1)
-		minishell_repeat(&sh);
-	free_all_struct(&sh, NULL, NULL);
+	//sh.env_list = populate_env(env);
+	//while (1)
+	minishell_repeat(&sh);
+	//free_all_struct(&sh, NULL, NULL);
 	return (0);
 }
 /*

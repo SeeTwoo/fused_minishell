@@ -19,10 +19,10 @@ void	free_double_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		safe_free((void **)&(array[i]));
+		free(array[i]);
 		i++;
 	}
-	safe_free((void **)&array);
+	free(array);
 }
 
 void	free_redirect(t_redir_node *redir)

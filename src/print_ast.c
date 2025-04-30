@@ -42,7 +42,7 @@ void	print_ast(t_ast_node *head)
 		return ;
 	if (head->type == OR)
 		printf("OR NODE\n\n");
-	else if (head->type == WORD)
+	else if (head->type == CMD)
 	{
 		printf("CMD NODE\n");
 		print_cmd(head);
