@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:51:37 by walter            #+#    #+#             */
-/*   Updated: 2025/04/30 13:48:18 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:20:34 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ struct s_minishell
 	t_ast_node	*ast;
 	t_env_list	*env_list;
 	char		*line;
-	char		*current_line;
 	int			pipe_count;
 	int			*pipe_fds;
 	int			last_exit;

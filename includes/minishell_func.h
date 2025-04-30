@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/28 13:05:45 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/04/30 14:07:12 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_ast_node	*parse_right(t_token **tokens, int index, int lim);
 int	find_lowest_right(t_token **tok, int i, int lim);
 
 //runtime_cleaners.c
-void	end_of_loop_cleaning(t_minishell *sh);
+int	end_of_loop_cleaning(t_minishell *sh, int ret_state);
 
 //token_cleaners.c
 void	safe_free(void **ptr);
