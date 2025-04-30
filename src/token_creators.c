@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 19:23:49 by walter            #+#    #+#             */
-/*   Updated: 2025/04/26 17:22:50 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:38:16 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_token	*separator_token(t_token *token, char **line)
 	}
 	token->type = hash_string(token->value);
 	token->prec = get_precedence(token->type);
+	token->expanded_value = NULL;
+	token->quote_mask = NULL;
 	return (token);
 }
 
@@ -58,6 +60,8 @@ t_token	*parenthesis_token(t_token *token, char **line)
 	if (token->value[0] == ')')
 		token->type = CLOSE_PAREN;
 	token->prec = get_precedence(token->type);
+	token->expanded_value = NULL;
+	token->quote_mask = NULL;
 	return (token);
 }
 
@@ -68,5 +72,7 @@ t_token	*commands_token(t_token *token, char **line)
 		return (NULL);
 	token->type = WORD;
 	token->prec = get_precedence(token->type);
+	token->expanded_value = NULL;
+	token->quote_mask = NULL;
 	return (token);
 }

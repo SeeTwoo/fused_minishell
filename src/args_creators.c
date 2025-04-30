@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:50:36 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/24 02:01:42 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:58:15 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ char	**args_creator(t_token **tok)
 			i += 2;
 		else
 		{
-			args[j] = ft_strdup(tok[i]->value);
+			if (tok[i]->expanded_value)
+				args[j] = ft_strdup(tok[i]->expanded_value);
+			else
+				args[j] = ft_strdup(tok[i]->value);
 			j++;
 			i++;
 		}

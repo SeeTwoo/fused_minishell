@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/28 23:38:52 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/30 11:59:00 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ int	minishell_repeat(t_minishell *sh)
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
 		return (free_all_struct(sh, NULL, NULL));
-	printf("PRINTING FIRST TOKEN STREAM\n\n");
-	print_tokens(sh->tok_list);
-	printf("\n\n");
 	globbing(sh);
 	if (list_to_array(sh) == FAILURE)
 		return (free_all_struct(sh, NULL, NULL));
@@ -98,7 +95,8 @@ int	minishell_repeat(t_minishell *sh)
 //	print_ast(sh->ast);
 	//fail logic + free the token array
 	dfs_ast(sh->ast, sh);
-	end_of_loop_cleaning(sh);
+	//end_of_loop_cleaning(sh);
+	safe_free((void **)&sh->line);
 	return (0);
 }
 
