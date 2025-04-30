@@ -7,7 +7,3 @@ failed mallocs and other kind of error.
 -add syntax check
 
 -refine parenthesis work
-
--add globbing
-
--get the custom dprintf done (%s in priority);
