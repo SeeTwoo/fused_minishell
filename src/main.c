@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/30 14:20:15 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/01 17:25:20 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void soft_init(t_minishell *sh)
 int	minishell_repeat(t_minishell *sh)
 {
 	soft_init(sh);
-	//set_standard_fds(sh);
+	set_standard_fds(sh);
 	sh->line = readline(PROMPT);
 	if (!sh->line || only_space(sh->line))
 		return (end_of_loop_cleaning(sh, FAILURE));
@@ -94,17 +94,12 @@ int	minishell_repeat(t_minishell *sh)
 	if (lexer(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	globbing(sh);
-	printf("PRINTING TOKEN STREAM\n\n");
-	print_tokens(sh->tok_list);
-	printf("\n");
 	if (list_to_array(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	if (has_error(sh->tok_array) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	//expand
-	sh->ast = parse_right(sh->tok_array, 0, 0);
-	printf("\nprinting ast:\n\n");
-	print_ast(sh->ast);
+	//sh->ast = parse_right(sh->tok_array, 0, 0);
 	//dfs_ast(sh->ast, sh);
 	end_of_loop_cleaning(sh, SUCCESS);
 	//safe_free((void **)&sh->line);
@@ -118,7 +113,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	(void)env;
-//	minishell_start();
+	//minishell_start();
 	init_shell(&sh);
 	//sh.env_list = populate_env(env);
 	//while (1)

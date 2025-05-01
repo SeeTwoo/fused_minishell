@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:00:29 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/26 19:30:00 by walter           ###   ########.fr       */
+/*   Updated: 2025/04/30 23:46:28 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ char	*get_type_str(int type)
 	return ("OTHER_TYPE");
 }
 
-void	print_cmd(t_ast_node *cmd_node)
+void	print_cmd(char **array)
 {
+	int	i;
+
+	i = 0;
 	printf("arguments are:\n");
-	while (*(cmd_node->args))
+	while (array[i])
 	{
-		printf("\t%s\n", *(cmd_node->args));
-		(cmd_node->args)++;
+		printf("\t%s\n", array[i]);
+		i++;
 	}
 	printf("\n");
 }
@@ -45,7 +48,7 @@ void	print_ast(t_ast_node *head)
 	else if (head->type == CMD)
 	{
 		printf("CMD NODE\n");
-		print_cmd(head);
+		print_cmd(head->args);
 	}
 	else if (head->type == PIPE)
 		printf("PIPE NODE\n\n");

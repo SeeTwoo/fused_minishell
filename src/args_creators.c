@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 18:50:36 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/30 11:58:15 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/01 00:49:53 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**args_creator(t_token **tok)
 	int		i;
 	int		j;
 
-	args = malloc(sizeof(char *) * (args_number(tok) + 1));
+	args = ft_calloc(sizeof(char *), (args_number(tok) + 1));
 	if (!args)
 		return (NULL);
 	i = 0;
