@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/30 14:07:12 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:18:44 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ int		free_all_struct(t_minishell *sh, char **arg_list, char **envp);
 
 // here_doc.c
 int	here_doc(char *lim, char **args, t_minishell *sh);
+
+// is_char_type.c
+int	is_double_quote(char c);
+int	is_single_quote(char c);
+int	is_quote(char c);
 
 //is_token_type.c
 int	is_pipe(int type);

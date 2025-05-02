@@ -49,6 +49,7 @@ int	lexeme_creator(char *quote_mask, char *line)
 	size_t	lexeme_len;
 	int		i;
 	int		j;
+	size_t	len_til_quote;
 
 	lexeme_len = quote_mask_size(line);
 	quote_mask = malloc(sizeof(char *) * (lexeme_len + 1));
@@ -58,7 +59,11 @@ int	lexeme_creator(char *quote_mask, char *line)
 	j = 0;
 	while (line[i] && !ft_strchr("<>&| ", line[i]))
 	{
-		if (is
+		if (is_single_quote(line[i]))
+		{
+			len_til_quote = ft_charspn(&line[i + 1], line[i]);
+
+		}
 	}
 }
 
