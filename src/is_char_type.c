@@ -14,7 +14,7 @@
 
 int	is_double_quote(char c)
 {
-	return (c == '\"')
+	return (c == '\"');
 }
 
 int	is_single_quote(char c)
@@ -22,7 +22,7 @@ int	is_single_quote(char c)
 	return (c == '\'');
 }
 
-int	is_quote(char C)
+int	is_quote(char c)
 {
 	return (c == '\'' || c == '\"');
 }

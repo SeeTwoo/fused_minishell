@@ -19,9 +19,10 @@ void	print_tokens(t_token *tokens)
 	while (tokens)
 	{
 		if (tokens->expanded_value)
-			printf("value is: %s\n", tokens->expanded_value);
+			printf("value is: \t%s\n", tokens->expanded_value);
 		else if (tokens->value)
-			printf("value is: %s\n", tokens->value);
+			printf("value is: \t%s\n", tokens->value);
+		ft_printf("quote mask is: \t%s\n", tokens->quote_mask);
 		tokens = tokens->next;
 	}
 }

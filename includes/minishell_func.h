@@ -117,6 +117,9 @@ t_redir_node	*get_redirect(t_token **tokens, int index);
 void	print_ast(t_ast_node *head);
 char	*get_type_str(int type);
 
+// quote_mask_creator.c
+int	quote_mask_creator(char **quote_mask, char *line);
+
 //right_parser.c
 t_ast_node	*parse_right(t_token **tokens, int index, int lim);
 int	find_lowest_right(t_token **tok, int i, int lim);

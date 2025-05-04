@@ -1,5 +1,4 @@
-#include "libft.h"
-#include <stdio.h>
+#include "minishell.h"
 
 size_t	ft_charspn(char *s, char c)
 {
@@ -11,70 +10,81 @@ size_t	ft_charspn(char *s, char c)
 	return (end - s);
 }
 
-int	is_quote(char c)
+void	mask_size_loop(int *i, int *j, char *line)
 {
-	return (c == '\'' || c == '\"');
+	size_t	len_til_quote;
+
+	if (is_quote(line[*i]))
+	{
+		len_til_quote = ft_charspn(&line[*i + 1], line[*i]);
+		*i += (len_til_quote + 1);
+		*j += len_til_quote;
+		if (is_quote(line[*i]))
+			(*i)++;
+	}
+	else
+	{
+		(*i)++;
+		(*j)++;
+	}
 }
 
 size_t	quote_mask_size(char *line)
 {
 	int		i;
 	int		j;
-	size_t	len_til_quote;
 
 	i = 0;
 	j = 0;
 	while (line[i] && !ft_strchr("<>&| ", line[i]))
-	{
-		if (is_quote(line[i]))
-		{
-			len_til_quote = ft_charspn(&line[i + 1], line[i]);
-			printf("len til quote is %lu\n\n", len_til_quote);
-			i += (len_til_quote + 1);
-			j += len_til_quote;
-			if (is_quote(line[i]))
-				i++;
-		}
-		else
-		{
-			i++;
-			j++;
-		}
-	}
+		mask_size_loop(&i, &j, line);
 	return (j);
 }
 
-int	lexeme_creator(char *quote_mask, char *line)
+void	lexeme_creator_loop(int *i, int *j, char *quote_mask, char *line)
+{
+	size_t	len_til_quote;
+
+	if (is_single_quote(line[*i]))
+	{
+		len_til_quote = ft_charspn(&line[*i + 1], '\'');
+		ft_memset(&quote_mask[*j], len_til_quote, 'S');
+		(*i) += (len_til_quote + 1);
+		(*j) += len_til_quote;
+		if (is_single_quote(line[*i]))
+			(*i)++;
+	}
+	else if (is_double_quote(line[*i]))
+	{
+		len_til_quote = ft_charspn(&line[*i + 1], '\"');
+		ft_memset(&quote_mask[*j], len_til_quote, 'D');
+		(*i) += (len_til_quote + 1);
+		(*j) += len_til_quote;
+		if (is_double_quote(line[*i]))
+			(*i)++;
+	}
+	else
+	{
+		quote_mask[*j] = 'N';
+		(*i)++;
+		(*j)++;
+	}
+}
+
+int	quote_mask_creator(char **quote_mask, char *line)
 {
 	size_t	lexeme_len;
 	int		i;
 	int		j;
-	size_t	len_til_quote;
 
 	lexeme_len = quote_mask_size(line);
-	quote_mask = malloc(sizeof(char *) * (lexeme_len + 1));
-	if (!quote_mask)
+	*quote_mask = malloc(sizeof(char *) * (lexeme_len + 1));
+	if (!(*quote_mask))
 		return (1);
 	i = 0;
 	j = 0;
 	while (line[i] && !ft_strchr("<>&| ", line[i]))
-	{
-		if (is_single_quote(line[i]))
-		{
-			len_til_quote = ft_charspn(&line[i + 1], line[i]);
-
-		}
-	}
-}
-
-int	main(int ac, char **av)
-{
-	//char	*lexeme;
-	char	*quote_mask;
-	
-	if (ac != 2)
-		return (1);
-	lexeme_creator(quote_mask, av[1]);
-	printf("quote mask: %s\n", quote_mask);
+		lexeme_creator_loop(&i, &j, *quote_mask, line);
+	(*quote_mask)[j] = '\0';
 	return (0);
 }
