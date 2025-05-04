@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:50:00 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 18:52:28 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 17:10:22 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,14 @@ int	is_n_option(char *s)
 
 int	change_directories(char *path)
 {
+	if (!getcwd(NULL, 0))
+	{
+		ft_dprintf(2, "chdir: %s getcwd: %s", RETRIEVE,  NO_ACCESS NO_FILE);
+		return (1);
+	}
 	if (chdir(path) != 0)
 	{
-		dprintf(2, "minishell: cd: %s: No such file or directory\n", path);
+		ft_dprintf(2, "minishell: cd: %s: " NO_FILE, path);
 		return (1);
 	}
 	return (0);
@@ -66,20 +71,20 @@ void	export_var(char *str, t_env_list *env)
 	char	*pos;
 	char	*key;
 	char	*value;
-	int	overwrite;
+	int		overwrite;
 
 	overwrite = 1;
 	pos = ft_strchr(str, '=');
 	if (!pos)
 		ft_setenv(str, NULL, 0, env);
-     	else
+	else
 	{
 		if (*(pos - 1) == '+')
 			overwrite = 0;
-		key = ft_substr(str, 0, pos - str + overwrite - 1); 
+		key = ft_substr(str, 0, pos - str + overwrite - 1);
 		value = ft_substr(pos + 1, 0, ft_strlen(pos - 1));
 		if (!key || !value)
-			return;
+			return ;
 		ft_setenv(key, value, overwrite, env);
 		free(key);
 		free(value);
@@ -96,7 +101,7 @@ void	export_no_args(t_env_list *env)
 		if (node->value == NULL)
 			ft_printf("export %s\n", node->key);
 		else
-			ft_printf("export %s=\"%s\"\n", node->key, node->value);
+			ft_printf(EXP_VALUE, node->key, node->value);
 		node = node->next;
 	}
 }	

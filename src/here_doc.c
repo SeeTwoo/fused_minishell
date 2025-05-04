@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:15:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 17:36:03 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 16:00:22 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,10 @@ int	get_next_line_input(char **line)
 	return (1);
 }
 
-// pb with the opened pipes in child process. They need to be closed
-// It is possible that same problem occur with exit
-
-int	here_doc(char *lim, char **args, t_minishell *sh)
+int	here_doc(char *lim, t_minishell *sh)
 {
-	int	fd[2];
-	int	pid;
+	int		fd[2];
+	int		pid;
 	char	*line;
 
 	if (pipe(fd) == -1)
@@ -74,7 +71,7 @@ int	here_doc(char *lim, char **args, t_minishell *sh)
 			if (compare_line(line, lim) == 0)
 			{
 				(close(fd[1]), close_all_pipes(sh));
-				(free_all_struct(sh, args, NULL), free(line));
+				(free_struct(sh), free(line));
 				exit(EXIT_SUCCESS);
 			}
 			ft_putstr_fd(line, fd[1]);

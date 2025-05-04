@@ -5,3 +5,9 @@ failed mallocs and other kind of error.
 	needs to be closed and free what needs to be freed
 
 -refine parenthesis work
+
+
+nnn ssss dddd
+
+"HO""ME"
+ssSS

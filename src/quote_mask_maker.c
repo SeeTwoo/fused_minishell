@@ -41,14 +41,14 @@ size_t	quote_mask_size(char *line)
 	return (j);
 }
 
-void	lexeme_creator_loop(int *i, int *j, char *quote_mask, char *line)
+void	mask_creator_loop(int *i, int *j, char *quote_mask, char *line)
 {
 	size_t	len_til_quote;
 
 	if (is_single_quote(line[*i]))
 	{
 		len_til_quote = ft_charspn(&line[*i + 1], '\'');
-		ft_memset(&quote_mask[*j], len_til_quote, 'S');
+		ft_memset(&quote_mask[*j], 'S', len_til_quote);
 		(*i) += (len_til_quote + 1);
 		(*j) += len_til_quote;
 		if (is_single_quote(line[*i]))
@@ -57,7 +57,7 @@ void	lexeme_creator_loop(int *i, int *j, char *quote_mask, char *line)
 	else if (is_double_quote(line[*i]))
 	{
 		len_til_quote = ft_charspn(&line[*i + 1], '\"');
-		ft_memset(&quote_mask[*j], len_til_quote, 'D');
+		ft_memset(&quote_mask[*j], 'D', len_til_quote);
 		(*i) += (len_til_quote + 1);
 		(*j) += len_til_quote;
 		if (is_double_quote(line[*i]))
@@ -84,7 +84,7 @@ int	quote_mask_creator(char **quote_mask, char *line)
 	i = 0;
 	j = 0;
 	while (line[i] && !ft_strchr("<>&| ", line[i]))
-		lexeme_creator_loop(&i, &j, *quote_mask, line);
+		mask_creator_loop(&i, &j, *quote_mask, line);
 	(*quote_mask)[j] = '\0';
 	return (0);
 }

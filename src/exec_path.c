@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:48:33 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 17:44:27 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 17:11:14 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_path_found(char *path)
 char	*look_for_path(char *name, char **com_paths)
 {
 	char	*path;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!name)
@@ -61,7 +61,7 @@ char	*look_for_path(char *name, char **com_paths)
 		return (ft_strdup(name));
 	else if (name && name[0] == '/')
 	{
-		dprintf(2, "minishell: %s: no such file or directory\n", name);
+		ft_dprintf(2, "minishell: %s: " NO_FILE, name);
 		return (NULL);
 	}
 	while (com_paths && com_paths[i])
@@ -71,7 +71,7 @@ char	*look_for_path(char *name, char **com_paths)
 			return (path);
 		(free(path), i++);
 	}
-	dprintf(2, "minishell: %s: command not found\n", name);
+	ft_dprintf(2, "minishell: %s: " NOT_FOUND, name);
 	return (NULL);
 }
 
@@ -83,7 +83,7 @@ char	**get_all_paths(t_env_list *env)
 	path_line = ft_getenv("PATH", env);
 	if (!path_line)
 		return (NULL);
-	paths = ft_split(path_line, ":"); 
+	paths = ft_split(path_line, ":");
 	if (!paths)
 		return (NULL);
 	return (paths);
@@ -100,6 +100,5 @@ char	*find_path(char *name, t_minishell *sh)
 	path = look_for_path(name, common_paths);
 	if (common_paths)
 		free_str_list(common_paths);
-	free(name);
 	return (path);
 }

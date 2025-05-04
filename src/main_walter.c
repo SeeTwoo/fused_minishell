@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 19:06:03 by walter            #+#    #+#             */
-/*   Updated: 2025/04/28 22:00:42 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 17:41:22 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_tokens(t_token *tokens)
 {
 	if (!tokens)
 		printf("no tokens dafug\n");
+	printf("\n");
 	while (tokens)
 	{
 		if (tokens->expanded_value)

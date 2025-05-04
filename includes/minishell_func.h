@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/02 15:18:44 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 16:05:02 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_env_node	*set_node(char *key, char *value);
 void		unset_node(t_env_node *node);
 t_env_node	*init_node(char *line);
 t_env_list	*init_env(void);
-t_env_list	*populate_env(char **env);
+t_env_list	*populate_env(char **env, int i);
 
 //env_utils.c
 char	*ft_getenv(char *name, t_env_list *env);
@@ -52,7 +52,7 @@ void	ft_unsetenv(char *name, t_env_list *env);
 
 // exec.c
 int	exec_external(char *n, char **args, t_minishell *sh);
-int	exec_builtin(char **args, t_ast_node *node, t_minishell *sh);
+int	exec_builtin(char **args, t_minishell *sh);
 
 // exec_path.c
 char	*find_path(char *name, t_minishell *sh);
@@ -63,11 +63,12 @@ int	set_redirections(char **args, t_redir_node *redir, t_minishell *sh);
 // free_all.c
 void	free_str_list(char **lst);
 int		free_all_struct(t_minishell *sh, char **arg_list, char **envp);
+void	free_struct(t_minishell *sh);
 //void	free_token_list(t_token **tk_list);
 //void	free_ast(t_ast_node *node);
 
 // here_doc.c
-int	here_doc(char *lim, char **args, t_minishell *sh);
+int	here_doc(char *lim, t_minishell *sh);
 
 // is_char_type.c
 int	is_double_quote(char c);
@@ -139,9 +140,13 @@ t_token *parenthesis_token(t_token *token, char **line);
 
 // tree_traverse.c
 int	cmd_node(t_ast_node *node, t_minishell *sh);
-void	pipe_node(t_ast_node *node, t_minishell *sh);
+int	pipe_node(t_ast_node *node, t_minishell *sh);
 void	dfs_ast(t_ast_node *node, t_minishell *sh);
 void	function_dfs_ast(t_ast_node *node, t_minishell *sh, int (*f)(t_ast_node *, t_minishell *));
+
+//tree_traverse_utils.c
+int	null_cmd_node(t_ast_node *node, t_minishell *sh);
+int	is_directory(char **args);
 
 // utils.c
 int	is_equal(char *s1, char *s2);

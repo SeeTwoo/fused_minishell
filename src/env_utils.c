@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:41:29 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 16:29:30 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 15:28:25 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_unsetenv(char *name, t_env_list *env)
 		if (is_equal(name, (node->next)->key))
 		{
 			to_remove = node->next;
-			node->next = to_remove->next;	
+			node->next = to_remove->next;
 			unset_node(to_remove);
-			break;
+			break ;
 		}
 		node = node->next;
 	}
@@ -46,31 +46,40 @@ char	*ft_getenv(char	*name, t_env_list *env)
 	return (NULL);
 }
 
+void	update_existing_node(t_env_node *node, char *value, int overwrite)
+{
+	if (overwrite && value)
+	{
+		free(node->value);
+		node->value = ft_strdup(value);
+	}
+	else if (value)
+		node->value = append_str(node->value, value);
+}
+
 int	ft_setenv(char *key, char *value, int overwrite, t_env_list *env)
 {
 	t_env_node	*node;
 	t_env_node	*new_node;
-	
+
 	node = env->head;
-	while (node->next)
+	while (node)
 	{
 		if (is_equal(key, node->key))
 		{
-			if (overwrite && value)
-			{
-				free(node->value);
-				node->value = ft_strdup(value); // should I duplicate ?
-			}
-			else if (value)
-				node->value = append_str(node->value, value);
+			update_existing_node(node, value, overwrite);
+			return (0);
+		}
+		if (!node->next)
+		{
+			new_node = set_node(key, value);
+			if (!new_node)
+				return (1);
+			node->next = new_node;
+			env->size++;
 			return (0);
 		}
 		node = node->next;
 	}
-	new_node = set_node(key, value);
-	if (!new_node)
-		return (1);
-	node->next = new_node;
-	env->size++;
 	return (0);
 }

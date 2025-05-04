@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 16:49:32 by walter            #+#    #+#             */
-/*   Updated: 2025/04/26 16:35:36 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 15:45:39 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@
 # ifndef FAILURE
 #  define FAILURE 1
 # endif
+
+extern pid_t	g_signal_pid;
 
 #endif

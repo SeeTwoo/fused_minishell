@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:24:24 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 17:25:57 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 15:52:15 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*ft_strjoin_env_node(char *key, char *value)
 {
 	char	*pt;
 	size_t	total_len;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	total_len = ft_strlen(key) + ft_strlen(value) + 1;
 	pt = malloc((total_len + 1) * sizeof(char));
@@ -56,7 +56,10 @@ char	*ft_strjoin_env_node(char *key, char *value)
 		return (NULL);
 	i = 0;
 	while (key[i])
-		(pt[i] = key[i], i++);
+	{
+		pt[i] = key[i];
+		i++;
+	}
 	if (value)
 	{
 		j = 0;
@@ -70,11 +73,11 @@ char	*ft_strjoin_env_node(char *key, char *value)
 
 char	**convert_envp_to_array(t_env_list *envl)
 {
-	char	**envp;
+	char		**envp;
 	t_env_node	*head;
-	int	i;
+	int			i;
 
-	envp = malloc((envl->size + 1) * sizeof(char *));	// Is size alerady set?
+	envp = malloc((envl->size + 1) * sizeof(char *));
 	if (!envp)
 		return (NULL);
 	i = 0;
@@ -88,5 +91,5 @@ char	**convert_envp_to_array(t_env_list *envl)
 		i++;
 	}
 	envp[i] = NULL;
-	return (envp);	
+	return (envp);
 }

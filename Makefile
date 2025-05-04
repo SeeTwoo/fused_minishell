@@ -9,6 +9,7 @@ SRC_DIR = src
 SRC_FILES =	args_creators.c \
 			ast_cleaner.c \
 			builtins.c \
+			builtins2.c \
 			builtins_utils.c \
 			command_line_error.c \
 			env.c \
@@ -36,6 +37,7 @@ SRC_FILES =	args_creators.c \
 			token_cleaners.c \
 			token_creators.c \
 			tree_traverse.c \
+			tree_traverse_utils.c \
 			utils.c \
 			wildcards_2try.c \
 			wildcards_matching.c \
