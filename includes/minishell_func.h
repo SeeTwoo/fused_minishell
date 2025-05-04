@@ -163,7 +163,11 @@ int	end_match(char *wild, char *s);
 int	are_matching(char *wild, char *s);
 
 //words.c
-char	*words(char **line);
+int	words(char **lexme, char **line);
+
+
+
+
 
 
 

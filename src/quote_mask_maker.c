@@ -12,16 +12,6 @@
 
 #include "minishell.h"
 
-size_t	ft_charspn(char *s, char c)
-{
-	char	*end;
-
-	end = ft_strchr(s, c);
-	if (!end)
-		return (ft_strlen(s));
-	return (end - s);
-}
-
 void	mask_size_loop(int *i, int *j, char *line)
 {
 	size_t	len_til_quote;

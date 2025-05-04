@@ -65,9 +65,7 @@ t_token	*parenthesis_token(t_token *token, char **line)
 t_token	*commands_token(t_token *token, char **line)
 {
 	quote_mask_creator(&(token->quote_mask), *line);
-	token->value = words(line);
-	if (!token->value)
-		return (NULL);
+	words(&(token->value), line);
 	token->type = WORD;
 	token->prec = get_precedence(token->type);
 	token->expanded_value = NULL;

@@ -78,17 +78,17 @@ int	minishell_repeat(t_minishell *sh)
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
-	//printf("PRINTING TOKEN STREAM\n\n");
-	//print_tokens(sh->tok_list);
+	printf("PRINTING TOKEN STREAM\n\n");
+	print_tokens(sh->tok_list);
 	//globbing(sh);
-	if (list_to_array(sh) == FAILURE)
-		return (end_of_loop_cleaning(sh, FAILURE));
+//	if (list_to_array(sh) == FAILURE)
+//		return (end_of_loop_cleaning(sh, FAILURE));
 	//if (has_error(sh->tok_array) == FAILURE)
 	//	return (end_of_loop_cleaning(sh, FAILURE));
 	//expand
-	sh->ast = parse_right(sh->tok_array, 0, 0);
-	dfs_ast(sh->ast, sh);
-	end_of_loop_cleaning(sh, SUCCESS);
+//	sh->ast = parse_right(sh->tok_array, 0, 0);
+//	dfs_ast(sh->ast, sh);
+//	end_of_loop_cleaning(sh, SUCCESS);
 	//safe_free((void **)&sh->line);
 	return (0);
 }
