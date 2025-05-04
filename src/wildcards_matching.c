@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 12:17:29 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/28 13:32:29 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:55:51 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	end_match(char *wild, char *s)
 		return (1);
 	s_len = ft_strlen(s) - 1;
 	i = 0;
-	while (wild_len - i >= 0 && s_len -i >= 0 && wild[wild_len - i] != '*')
+	while (wild_len - i >= 0 && s_len - i >= 0 && wild[wild_len - i] != '*')
 	{
 		if (wild[wild_len - i] != s[s_len - i])
 			return (0);

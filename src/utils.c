@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:35:03 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/04/24 16:45:36 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/04 18:59:07 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**init_list(void)
 {
 	char	**res;
 
-	res = malloc(2 * sizeof(char*));
+	res = malloc(2 * sizeof(char *));
 	if (!res)
 		return (NULL);
 	res[0] = NULL;
@@ -38,8 +38,8 @@ char	**init_list(void)
 char	**append_to_lst(char **l, char *new_s)
 {
 	char	**new_l;
-	int	i;
-	int	size;
+	int		i;
+	int		size;
 
 	size = ft_lstlen(l);
 	new_l = malloc((size + 2) * sizeof(char *));
@@ -90,5 +90,3 @@ int	is_a_number(char *str)
 	}
 	return (1);
 }
-
-

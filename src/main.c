@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 17:27:38 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:23:12 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,6 @@ int	only_space(char *str)
 	}
 	return (1);
 }
-
-/*void	print_tokens(t_token **tk_list)
-{
-	int	i;
-
-	i = 0;
-	while (tk_list[i])
-	{
-		ft_printf("--- %d ---\n", i);
-		ft_printf("value : %s\n", tk_list[i]->value);
-//		ft_printf("type : %d\n", tk_list[i]->type);
-//		ft_printf("quote mask : %s\n", tk_list[i]->quote_mask);
-//		ft_printf("exp value : %s\n", tk_list[i]->expanded_value);
-		ft_printf("---------\n");
-		i++;
-	}
-}*/
 
 void	set_standard_fds(t_minishell *sh)
 {
@@ -95,16 +78,16 @@ int	minishell_repeat(t_minishell *sh)
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
-	printf("PRINTING TOKEN STREAM\n\n");
-	print_tokens(sh->tok_list);
+	//printf("PRINTING TOKEN STREAM\n\n");
+	//print_tokens(sh->tok_list);
 	//globbing(sh);
-	//if (list_to_array(sh) == FAILURE)
-	//	return (end_of_loop_cleaning(sh, FAILURE));
+	if (list_to_array(sh) == FAILURE)
+		return (end_of_loop_cleaning(sh, FAILURE));
 	//if (has_error(sh->tok_array) == FAILURE)
 	//	return (end_of_loop_cleaning(sh, FAILURE));
 	//expand
-	//sh->ast = parse_right(sh->tok_array, 0, 0);
-	//dfs_ast(sh->ast, sh);
+	sh->ast = parse_right(sh->tok_array, 0, 0);
+	dfs_ast(sh->ast, sh);
 	end_of_loop_cleaning(sh, SUCCESS);
 	//safe_free((void **)&sh->line);
 	return (0);
@@ -116,10 +99,9 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	(void)env;
 	//minishell_start();
 	init_shell(&sh);
-	//sh.env_list = populate_env(env);
+	sh.env_list = populate_env(env, -1);
 	//while (1)
 	minishell_repeat(&sh);
 	//free_all_struct(&sh, NULL, NULL);

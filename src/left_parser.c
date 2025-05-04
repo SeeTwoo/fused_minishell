@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 09:22:10 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/27 14:42:38 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:57:12 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ t_ast_node	*parse_left(t_token **tok, int i, int lim)
 		return (pipe_creator(tok, i));
 	return (cmd_creator(tok, i));
 }
-

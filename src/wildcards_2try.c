@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wildcards_2try.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/04 18:53:35 by wbeschon          #+#    #+#             */
+/*   Updated: 2025/05/04 18:54:24 by wbeschon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	add_wild_tok(t_token **wild_toks, char *entry)
@@ -71,12 +83,12 @@ int	insert_wild_toks(t_token **head)
 int	globbing(t_minishell *sh)
 {
 	t_token	*temp;
-	
+
 	temp = sh->tok_list;
 	while (temp)
 	{
 		if (temp->type == WORD && temp->next && temp->next->type == WORD
-				&& ft_strchr(temp->next->value, '*'))
+			&& ft_strchr(temp->next->value, '*'))
 			insert_wild_toks(&temp);
 		temp = temp->next;
 	}

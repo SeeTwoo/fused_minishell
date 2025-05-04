@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 15:28:03 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/28 13:39:50 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:51:04 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	put_tail_back(t_token *head, t_token *list_tail)
 	head->next = list_tail;
 }
 
-t_token *add_wild_tok(char *entry)
+t_token	*add_wild_tok(char *entry)
 {
 	t_token	*new;
 
@@ -35,7 +35,7 @@ t_token *add_wild_tok(char *entry)
 	return (new);
 }
 
-t_token	*create_wild_tokens(char *wild)
+/*t_token	*create_wild_tokens(char *wild)
 {
 	struct dirent	*entry;
 	DIR				*dir;
@@ -65,6 +65,7 @@ t_token	*create_wild_tokens(char *wild)
 	closedir(dir);
 	return (head);
 }
+*/
 
 int	globbing(t_minishell *sh)
 {

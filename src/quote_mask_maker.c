@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_mask_maker.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/04 18:51:32 by wbeschon          #+#    #+#             */
+/*   Updated: 2025/05/04 18:53:01 by wbeschon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 size_t	ft_charspn(char *s, char c)
@@ -65,9 +77,8 @@ void	mask_creator_loop(int *i, int *j, char *quote_mask, char *line)
 	}
 	else
 	{
-		quote_mask[*j] = 'N';
+		quote_mask[(*j)++] = 'N';
 		(*i)++;
-		(*j)++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:50:00 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 17:10:22 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:56:58 by wbeschon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	change_directories(char *path)
 {
 	if (!getcwd(NULL, 0))
 	{
-		ft_dprintf(2, "chdir: %s getcwd: %s", RETRIEVE,  NO_ACCESS NO_FILE);
+		ft_dprintf(2, "chdir: %s getcwd: %s", RETRIEVE, NO_ACCESS NO_FILE);
 		return (1);
 	}
 	if (chdir(path) != 0)
