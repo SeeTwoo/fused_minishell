@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:00:10 by walter            #+#    #+#             */
-/*   Updated: 2025/04/22 12:47:34 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:40:52 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	quote_free_cpy(char *lexeme, char **line, size_t *i)
 	if (is_single_quote(**line))
 	{
 		len_til_quote = ft_charspn((*line + 1), **line);
-		ft_memcpy(&lexeme[*i], *line, len_til_quote);
+		ft_memcpy(&lexeme[*i], *line + 1, len_til_quote);
 		(*line) += (len_til_quote + 1);
 		(*i) += len_til_quote;
 		if (is_single_quote(**line))
@@ -59,7 +59,7 @@ void	quote_free_cpy(char *lexeme, char **line, size_t *i)
 	else if (is_double_quote(**line))
 	{
 		len_til_quote = ft_charspn((*line + 1), **line);
-		ft_memcpy(&lexeme[*i], *line, len_til_quote);
+		ft_memcpy(&lexeme[*i], *line + 1, len_til_quote);
 		(*line) += (len_til_quote + 1);
 		(*i) += len_til_quote;
 		if (is_double_quote(**line))
@@ -80,9 +80,9 @@ int	words(char **lexeme, char **line)
 	if (!(*lexeme))
 		return (FAILURE);
 	i = 0;
-	while ((*line)[i] && !isspace((*line)[i]) && !strchr(SEPS, (*line)[i]))
+	while (**line && !ft_isspace(**line) && !ft_strchr(SEPS, **line))
 		quote_free_cpy(*lexeme, line, &i);
-	*lexeme[i] = '\0';
+	(*lexeme)[i] = '\0';
 	return (SUCCESS);
 }
 

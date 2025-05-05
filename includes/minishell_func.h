@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 17:59:45 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 16:05:02 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:06:51 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	free_struct(t_minishell *sh);
 // here_doc.c
 int	here_doc(char *lim, t_minishell *sh);
 
+// init.c
+void	set_standard_fds(t_minishell *sh);
+void	minishell_start(void);
+void	inite_shell(t_minishell *sh);
+void	soft_init(t_minishell *sh);
+
 // is_char_type.c
 int	is_double_quote(char c);
 int	is_single_quote(char c);
@@ -105,6 +111,10 @@ void	init_shell(t_minishell *sh);
 //main_walter.c
 void	print_tokens(t_token *tokens);
 t_token	*free_tokens(t_token *tokens);
+
+//minishell.c
+int	only_spaces(char *str);
+int	minishell_repeat(t_minishell *sh);
 
 //node_creators.c
 t_ast_node	*cmd_creator(t_token **tokens, int index);

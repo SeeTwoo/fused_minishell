@@ -20,17 +20,19 @@ SRC_FILES =	args_creators.c \
 			exec_redirection.c \
 			free_all.c \
 			here_doc.c \
+			init.c \
 			is_char_type.c \
 			is_token_type.c \
 			left_parser.c \
 			lexemes_creators.c \
 			lexer.c \
 			main.c \
-			main_walter.c \
+			minishell.c \
 			node_creators.c \
 			parser.c \
 			parsing_redirections.c \
 			print_ast.c \
+			print_tokens.c \
 			quote_mask_maker.c \
 			right_parser.c \
 			runtime_cleaners.c \
