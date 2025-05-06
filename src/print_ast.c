@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:00:29 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/04/30 23:46:28 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/06 03:08:44 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,17 @@ void	print_cmd(char **array)
 	printf("\n");
 }
 
+void	print_redir(t_redir_node *head)
+{
+	printf("redirections\n");
+	while (head)
+	{
+		printf("\t\t%s\n", head->str);
+		head = head->next;
+	}
+	printf("\n");
+}
+
 void	print_ast(t_ast_node *head)
 {
 	if (!head)
@@ -49,6 +60,8 @@ void	print_ast(t_ast_node *head)
 	{
 		printf("CMD NODE\n");
 		print_cmd(head->args);
+		if (head->redirect)
+			print_redir(head->redirect);
 	}
 	else if (head->type == PIPE)
 		printf("PIPE NODE\n\n");

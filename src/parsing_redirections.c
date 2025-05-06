@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:13:01 by walter            #+#    #+#             */
-/*   Updated: 2025/04/24 16:24:41 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/06 03:15:46 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ t_redir_node	*new_redir_node(t_token **tok, int i)
 	return (new);
 }
 
-void	add_redir_node(t_redir_node *head, t_token **tok, int i)
+void	add_redir_node(t_redir_node **head, t_token **tok, int i)
 {
-	if (!head)
-		head = new_redir_node(tok, i);
+	if (!(*head))
+		*head = new_redir_node(tok, i);
 	else
 	{
-		while (head->next)
-			head = head->next;
-		head->next = new_redir_node(tok, i);
+		while ((*head)->next)
+			*head = (*head)->next;
+		(*head)->next = new_redir_node(tok, i);
 	}
 }
 
@@ -63,7 +63,7 @@ t_redir_node	*get_redirect(t_token **tok, int i)
 	while (tok[i] && tok[i]->prec == 2)
 	{
 		if (is_redir(tok[i]->type))
-			add_redir_node(head, tok, i);
+			add_redir_node(&head, tok, i);
 		i++;
 	}
 	return (head);

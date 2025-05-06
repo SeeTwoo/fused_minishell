@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:38:41 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/05 19:04:09 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/06 00:23:20 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(int ac, char **av, char **env)
 	//minishell_start();
 	init_shell(&sh);
 	sh.env_list = populate_env(env, -1);
-	//while (1)
-	minishell_repeat(&sh);
+	while (1)
+		minishell_repeat(&sh);
 	//free_all_struct(&sh, NULL, NULL);
 	return (0);
 }
