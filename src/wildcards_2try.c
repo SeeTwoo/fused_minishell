@@ -6,7 +6,7 @@
 /*   By: wbeschon <wbeschon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 18:53:35 by wbeschon          #+#    #+#             */
-/*   Updated: 2025/05/04 18:54:24 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/06 04:27:45 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ int	add_wild_tok(t_token **wild_toks, char *entry)
 	new->quote_mask = NULL;
 	new->next = NULL;
 	if (!(*wild_toks))
-	{
 		*wild_toks = new;
-	}
 	else
 	{
 		current = *wild_toks;

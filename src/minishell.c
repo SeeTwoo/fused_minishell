@@ -6,7 +6,7 @@
 /*   By: walter <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:04:23 by walter            #+#    #+#             */
-/*   Updated: 2025/05/06 03:16:41 by walter           ###   ########.fr       */
+/*   Updated: 2025/05/06 04:29:10 by walter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	minishell_repeat(t_minishell *sh)
 	add_history(sh->line);
 	if (lexer(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
+	globbing(sh);
 //	print_tokens(sh->tok_list);
-	//globbing(sh);
 	if (list_to_array(sh) == FAILURE)
 		return (end_of_loop_cleaning(sh, FAILURE));
 	if (has_error(sh->tok_array) == FAILURE)
@@ -46,7 +46,6 @@ int	minishell_repeat(t_minishell *sh)
 	sh->ast = parse_right(sh->tok_array, 0, 0);
 //	print_ast(sh->ast);
 	dfs_ast(sh->ast, sh);
-	//end_of_loop_cleaning(sh, SUCCESS);
-	//safe_free((void **)&sh->line);
+	end_of_loop_cleaning(sh, SUCCESS);
 	return (0);
 }
