@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:35:03 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 18:59:07 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:13:09 by gfontagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,40 +21,14 @@ int	is_equal(char *s1, char *s2)
 	return (1);
 }
 
-// I keep this for now but it is useless
-
-char	**init_list(void)
+int	ft_lstlen(char **args)
 {
-	char	**res;
+	int	i;
 
-	res = malloc(2 * sizeof(char *));
-	if (!res)
-		return (NULL);
-	res[0] = NULL;
-	res[1] = NULL;
-	return (res);
-}
-
-char	**append_to_lst(char **l, char *new_s)
-{
-	char	**new_l;
-	int		i;
-	int		size;
-
-	size = ft_lstlen(l);
-	new_l = malloc((size + 2) * sizeof(char *));
-	if (!new_l)
-		return (NULL);
 	i = 0;
-	while (i < size)
-	{
-		new_l[i] = l[i];
+	while (args[i])
 		i++;
-	}
-	new_l[i] = new_s;
-	new_l[i + 1] = NULL;
-	free(l);
-	return (new_l);
+	return (i);
 }
 
 char	*append_str(char *dest, char *src)
@@ -73,20 +47,46 @@ char	*append_str(char *dest, char *src)
 	return (new);
 }
 
+int	exceed_llmax(char *str, int sign)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	if (len > LLMAX_LEN)
+		return (1);
+	if (len < LLMAX_LEN)
+		return (0);
+	if (sign == 1 && ft_strcmp(LLMAX_STR, str) < 0)
+		return (1);
+	else if (sign == -1 && ft_strcmp(LLMIN_STR, str) < 0)
+		return (1);
+	return (0);
+}
+
 int	is_a_number(char *str)
 {
 	int	i;
+	int	sign;
 
 	i = 0;
+	sign = 1;
 	if (str[0] && (str[0] == '+' || str[0] == '-'))
-		i++;
+	{
+		if (str[0] == '-')
+			sign = -1;
+		str++;
+	}
 	if (!str[i])
 		return (0);
+	while (*str == '0')
+		str++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]) && i)
 			return (0);
 		i++;
 	}
+	if (exceed_llmax(str, sign))
+		return (0);
 	return (1);
 }

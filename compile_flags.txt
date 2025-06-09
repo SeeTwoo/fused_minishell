@@ -1,0 +1,11 @@
+# In your minishell directory, create compile_flags.txt:
+cat << 'EOF' > compile_flags.txt
+-Iincludes
+-Ilibftprintf/include
+-Ilibftprintf/libft
+-std=c99
+-Wall
+-Wextra
+-Werror
+EOF
+

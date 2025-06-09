@@ -1,0 +1,80 @@
+# Readline library suppressions
+{
+	leak_readline
+	Memcheck:Leak
+	...
+	fun:readline
+}
+{
+	leak_add_history
+	Memcheck:Leak
+	...
+	fun:add_history
+}
+{
+	leak_history_expand
+	Memcheck:Leak
+	...
+	fun:history_expand
+}
+{
+	leak_rl_initialize
+	Memcheck:Leak
+	...
+	fun:rl_initialize
+}
+# ls command suppressions
+{
+	leak_ls_getpwuid
+	Memcheck:Leak
+	...
+	obj:*/bin/ls
+	fun:getpwuid*
+}
+{
+	leak_ls_getgrgid
+	Memcheck:Leak
+	...
+	obj:*/bin/ls
+	fun:getgrgid*
+}
+{
+	leak_ls_general
+	Memcheck:Leak
+	...
+	obj:*/bin/ls
+}
+# grep command suppressions
+{
+	leak_grep_pcre
+	Memcheck:Leak
+	...
+	obj:*/bin/grep
+	obj:*/libpcre*
+}
+{
+	leak_grep_general
+	Memcheck:Leak
+	...
+	obj:*/bin/grep
+}
+# awk suppressions
+{
+	leak_awk
+	Memcheck:Leak
+	...
+	obj:*/bin/awk
+}
+{
+	leak_gawk
+	Memcheck:Leak
+	...
+	obj:*/bin/gawk
+}
+# sed suppressions
+{
+	leak_sed
+	Memcheck:Leak
+	...
+	obj:*/bin/sed
+}

@@ -6,20 +6,20 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:24:24 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 15:52:15 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/27 17:21:46 by gfontagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_lstlen(char **args)
+void	free_in_cmd_exec(char **envp, char *path, char **args)
 {
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
+	if (envp)
+		free_str_list(envp);
+	if (path)
+		free(path);
+	if (args)
+		free_str_list(args);
 }
 
 int	is_builtin(char *str)
@@ -84,9 +84,15 @@ char	**convert_envp_to_array(t_env_list *envl)
 	head = envl->head;
 	while (head)
 	{
-		envp[i] = ft_strjoin_env_node(head->key, head->value);
+		if (head->value)
+			envp[i] = ft_strjoin_env_node(head->key, head->value);
+		else
+			envp[i] = ft_strdup(head->key);
 		if (!envp[i])
-			return (NULL);
+		{
+			envp[i] = NULL;
+			return (free_str_list(envp), NULL);
+		}
 		head = head->next;
 		i++;
 	}

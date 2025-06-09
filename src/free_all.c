@@ -6,11 +6,20 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 13:28:44 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 15:59:57 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:04:35 by gfontagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	close_pipe_safely(int *fd)
+{
+	if (fd && *fd >= 0)
+	{
+		close(*fd);
+		*fd = -1;
+	}
+}
 
 void	free_env_list(t_env_list *env_list)
 {
@@ -30,7 +39,7 @@ void	free_env_list(t_env_list *env_list)
 	free(env_list);
 }
 
-/*void	free_token_list(t_token **tk_list)
+void	free_token_list(t_token **tk_list)
 {
 	int	i;
 
@@ -39,7 +48,6 @@ void	free_env_list(t_env_list *env_list)
 	{
 		free(tk_list[i]->value);
 		free(tk_list[i]->quote_mask);
-		free(tk_list[i]->expanded_value);
 		free(tk_list[i]->transition_mask);
 		free(tk_list[i]);
 		tk_list[i] = NULL;
@@ -47,7 +55,6 @@ void	free_env_list(t_env_list *env_list)
 	}
 	free(tk_list);
 }
-*/
 
 void	free_str_list(char **lst)
 {
@@ -71,13 +78,18 @@ void	free_struct(t_minishell *sh)
 		return ;
 	if (sh->env_list)
 		free_env_list(sh->env_list);
+	if (sh->token_list)
+		free_token_list(sh->token_list);
 	if (sh->ast)
 		free_ast(sh->ast);
 	if (sh->pipe_fds)
 		free(sh->pipe_fds);
-	close(sh->original_stdin);
-	close(sh->original_stdout);
+	close_pipe_safely(&(sh->original_stdin));
+	close_pipe_safely(&(sh->original_stdout));
 	if (sh->line)
 		free(sh->line);
+	if (sh->pids)
+		free(sh->pids);
+	sh->pid_count = 0;
 	free(sh);
 }

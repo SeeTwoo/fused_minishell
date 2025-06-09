@@ -6,7 +6,7 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:13:13 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 15:24:17 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:30:59 by gfontagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_env_list	*populate_env(char **env, int i)
 		{
 			current_node = init_node(env[i]);
 			if (!current_node)
-				return (NULL);
+				break ;
 			if (previous_node != NULL)
 				previous_node->next = current_node;
 			if (!env_list->head)

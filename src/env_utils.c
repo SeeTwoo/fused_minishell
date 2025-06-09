@@ -6,11 +6,28 @@
 /*   By: gfontagn <gfontagn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 19:41:29 by gfontagn          #+#    #+#             */
-/*   Updated: 2025/05/04 15:28:25 by wbeschon         ###   ########.fr       */
+/*   Updated: 2025/05/05 19:45:44 by gfontagn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_shlvl(t_env_list *envl)
+{
+	char	*shlvl_char;
+	int		shlvl;
+
+	shlvl_char = ft_getenv("SHLVL", envl);
+	if (shlvl_char)
+	{
+		shlvl = ft_atoi(shlvl_char) + 1;
+		shlvl_char = ft_itoa(shlvl);
+		ft_setenv("SHLVL", shlvl_char, 1, envl);
+		free(shlvl_char);
+	}
+	else
+		ft_setenv("SHLVL", "1", 1, envl);
+}
 
 void	ft_unsetenv(char *name, t_env_list *env)
 {
@@ -18,6 +35,13 @@ void	ft_unsetenv(char *name, t_env_list *env)
 	t_env_node	*to_remove;
 
 	node = env->head;
+	if (node && is_equal(name, node->key))
+	{
+		env->head = node->next;
+		unset_node(node);
+		env->size = -1;
+		return ;
+	}
 	while (node->next)
 	{
 		if (is_equal(name, (node->next)->key))
@@ -25,11 +49,11 @@ void	ft_unsetenv(char *name, t_env_list *env)
 			to_remove = node->next;
 			node->next = to_remove->next;
 			unset_node(to_remove);
+			env->size -= 1;
 			break ;
 		}
 		node = node->next;
 	}
-	env->size -= env->size;
 }
 
 char	*ft_getenv(char	*name, t_env_list *env)
@@ -63,13 +87,15 @@ int	ft_setenv(char *key, char *value, int overwrite, t_env_list *env)
 	t_env_node	*new_node;
 
 	node = env->head;
+	if (!node)
+	{
+		env->head = set_node(key, value);
+		env->size++;
+	}
 	while (node)
 	{
 		if (is_equal(key, node->key))
-		{
-			update_existing_node(node, value, overwrite);
-			return (0);
-		}
+			return (update_existing_node(node, value, overwrite), 0);
 		if (!node->next)
 		{
 			new_node = set_node(key, value);
